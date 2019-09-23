@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class SearchMap {
 
 	public static void main(String args[]) {
-		SearchMap s = new SearchMap();
-		s.readFile();
-		
+		//SearchMap s = new SearchMap();
+		//s.readFile();
+		System.out.println("hello my friend");
 
 	}
 	public void readFile() {

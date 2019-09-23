@@ -1,0 +1,47 @@
+<project name="Project1" default="compile" basedir=".">
+
+
+<!-- global var -->
+<property name="source.dir" location="src"/> 
+<property name="build.dir" location="bin"/> 
+<property name="doc.dir" location="doc"/>
+
+<!-- Init target -->
+<target name="init">
+        <mkdir dir="bin"/>
+        <mkdir dir="dis"/>
+        <mkdir dir="doc"/>
+</target>
+
+
+<!-- compile -->
+<target name="compile" depends="init">
+        <javac srcdir="src" destdir="bin"/>
+</target>
+
+<!-- clean -->
+<target name="clean" depends="init">
+        <delete dir="doc"/>
+        <delete dir="bin"/>
+        <delete dir="dis"/>
+</target>
+
+
+<!-- doc target -->
+<target name="doc" depends="init">
+		<javadoc destdir="doc">
+			<fileset dir="src"/>
+		</javadoc>
+</target>
+
+<!-- Jar -->
+<target name="jar" depends="compile">
+        <jar destfile="dis/SearchMap.jar" basedir="bin/">
+            <manifest>
+                <attribute name="Main-Class" value="SearchMap"/>
+            </manifest>
+        </jar>
+    </target>
+
+
+</project>
