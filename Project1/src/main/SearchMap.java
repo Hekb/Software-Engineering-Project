@@ -1,6 +1,7 @@
 package main;
 
 
+
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -17,6 +18,7 @@ public class SearchMap {
 	   * @param args[] the filename which containts the data and the output file name
 	   */
 	public static void main(String args[]) {
+		System.out.println("hello");
 		SearchMap s = new SearchMap();
 		s.readFile("../" + args[0]);
 		s.computeRoutes();
@@ -68,14 +70,16 @@ public class SearchMap {
 		try {
 			String[] routesComputed = obj.getRoutes();
 		    BufferedWriter writer = new BufferedWriter(new FileWriter(outputfile));
-		    writer.write("Destination       Flight Route from P       Total Cost");
+		    String m = String.format("%-20s %-20s %-20s", "Destination", "Flight Route from P", "Total Cost");
+		    writer.write(m);
 		    for(int i = 0; i < routesComputed.length; i++) {
 				if(routesComputed[i] != null) {
 					writer.newLine();
 					String des = obj.getCity(i);
 					String route = routesComputed[i];
 					int routeCost = obj.getRouteCosts(i);
-					writer.write(des + "       " + route + "       " + routeCost);
+					String s = String.format("%-20s %-20s %-20s", des,route,routeCost);
+					writer.write(s);
 				}
 			}
 		     

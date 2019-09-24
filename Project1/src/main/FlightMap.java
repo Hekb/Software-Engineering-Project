@@ -3,6 +3,7 @@ package main;
 
 
 
+
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -171,12 +172,14 @@ public class FlightMap {
 	/**
 	   * Get method which returns the cost of a route index T
 	   * @param index the route which we want to find out the cost of
+	   * @return the route cost of the index
 	   */
 	public int getRouteCosts(int index) {
 		return this.costs[index];
 	}
 	/**
 	   * Get method which returns all of the routes found
+	   * @return the all routes found array
 	   */
 	public String[] getRoutes() {
 		return this.routes;
@@ -184,12 +187,14 @@ public class FlightMap {
 	/**
 	   * Get method to get the city string based on the index value in the LL
 	   * @param index the index of the city
+	   * @return the city name based on the index
 	   */
 	public String getCity(int index) {
 		return this.cities.get(index);
 	}
 	/**
-	   * Get method which returns how many cities the graph has
+	   * Get method which returns how many nodes the graph has
+	   * @return how many nodes the graph has
 	   */
 	public int howManycities() {
 		return this.cities.size();

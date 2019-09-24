@@ -8,37 +8,47 @@
         <mkdir dir="bin"/>
         <mkdir dir="dis"/>
         <mkdir dir="doc"/>
-        <mkdir dir="src/test"/>
-        <mkdir dir="bin/test"/>
+        <mkdir dir="src"/>
+		
 </target>
 
 
 <!-- compile Main files -->
 <target name="compile" depends="init">
-        <javac srcdir="src/main" destdir="bin/main" includeantruntime="false"/>
+        <javac srcdir="src/main" destdir="bin" includeantruntime="false"/>
 </target>
 	
 
 
-	<target name="compileTest" depends="compile" description="compile jUnit Test cases ">
-	    <javac srcdir="src/test" destdir="bin/test" includeantruntime="true" nowarn="yes" debug="true" />
+	 <path id="classpath.test">
+	 	<pathelement location="lib/junit-4.12.jar"/>
+		<pathelement location="lib/hamcrest-core-1.3.jar"/>
+	 	<pathelement path="bin"/>
+	  </path>
+	
+	<target name="compileTest" description="compile jUnit Test cases ">
+	    <javac srcdir="src" destdir="bin" includeantruntime="true" classpath="lib/junit-4.12.jar"
+ 			nowarn="yes" debug="true"/>
 	</target>
 	
+
 	<target name="test" depends="compileTest">
-	  <junit>
-	    <classpath>
-	      <pathelement location="bin" />    
-	      <pathelement location="lib/junit-4.12.jar"/>
-    	   <pathelement location="lib/hamcrest-core-1.3.jar"/>
-	    </classpath>    
-	    <batchtest>
-	       <fileset dir="src/test">
-	            <include name="**/*Test*" />
-	       </fileset>
-	    </batchtest>
-	    <formatter type="brief" usefile="false"/>
-	  </junit>
-	</target> 
+
+		    <junit printsummary="on" fork="yes">
+		        	<classpath>
+		        		<pathelement location="lib/junit-4.12.jar"/>
+		        		<pathelement location="lib/hamcrest-core-1.3.jar"/>
+		        		<pathelement path="bin"/>
+			       	</classpath>
+		        	
+			        <formatter type="brief" usefile="false" />
+
+		            <batchtest fork="yes" >
+		            	<fileset dir="src" includes="**/Test*" />
+		            </batchtest>
+		        </junit>
+		    </target>
+
 	
 <!-- clean -->
 <target name="clean" depends="init">
@@ -46,23 +56,37 @@
         <delete dir="bin"/>
         <delete dir="dis"/>
 </target>
+	
+	
+
+	
 
 
 <!-- doc target -->
 <target name="doc" depends="init">
 		<javadoc destdir="doc">
-			<fileset dir="src"/>
+			<fileset dir="src/main"/>
 		</javadoc>
 </target>
 
 <!-- Jar -->
 <target name="jar" depends="compile">
-        <jar destfile="dis/SearchMap.jar" basedir="bin/">
+        <jar destfile="dis/Project1.jar" basedir="bin/main">
             <manifest>
                 <attribute name="Main-Class" value="SearchMap"/>
             </manifest>
         </jar>
 </target>
 
+	<target name = "dis">
+	   <jar destfile = "dis/Project1.jar"
+	      basedir = "bin"
+	      excludes = "**/Test*.class">
+	      
+	      <manifest>
+	         <attribute name = "Main-Class" value = "main.SearchMap"/>
+	      </manifest>
+	   </jar>
+	</target>
 
 </project>
