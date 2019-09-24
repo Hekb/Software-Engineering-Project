@@ -1,3 +1,8 @@
+package main;
+
+
+
+
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -26,11 +31,6 @@ public class FlightMap {
 		cities = new LinkedList<String>();
 
 	}
-	
-	public static void main(String args[]) {
-		
-	}
-	
 	
 	
 	//Function that stores the cities in LinkedList
@@ -96,7 +96,7 @@ public class FlightMap {
 	    	findPath(0, i, temp, 0);
 	    }
 	    computeCosts();	
-	    }
+	 }
 	
 	
 	//Backtracking to find a path
@@ -127,6 +127,7 @@ public class FlightMap {
 		ctr--;
 		visited[src] = false;
 	}
+	
 	public void computeCosts() {
 		this.costs = new int[cities.size()];
 		for(int i = 1; i < routes.length; i++) {

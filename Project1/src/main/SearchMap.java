@@ -1,3 +1,6 @@
+package main;
+
+
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,17 +12,18 @@ public class SearchMap {
 	FlightMap obj;
 	public static void main(String args[]) {
 		SearchMap s = new SearchMap();
-		s.readFile();
+		s.readFile("../" + args[0]);
 		s.computeRoutes();
-		s.writeToFile();
+		s.writeToFile("../" + args[1]);
 
 	}
 	
 	public SearchMap() {
 		obj = new FlightMap();
 	}
-	public void readFile() {
-		String fileName = "file.txt";
+	
+	public void readFile(String filename) {
+		String fileName = filename;
 		try {
 			FileReader fr = new FileReader(fileName);
 			Scanner s = new Scanner(fr);
@@ -31,15 +35,17 @@ public class SearchMap {
 			System.out.println(e.getMessage());
 		}
 	}
+	
 	public void computeRoutes() {
 		obj.computeRoutes();
 	}
-	public void writeToFile() {
+	
+	public void writeToFile(String outputfile) {
 		
 		//Write to a file
 		try {
 			String[] routesComputed = obj.getRoutes();
-		    BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"));
+		    BufferedWriter writer = new BufferedWriter(new FileWriter(outputfile));
 		    writer.write("Destination       Flight Route from P       Total Cost");
 		    for(int i = 0; i < routesComputed.length; i++) {
 				if(routesComputed[i] != null) {
