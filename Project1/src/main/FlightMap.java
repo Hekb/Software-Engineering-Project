@@ -9,31 +9,48 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class FlightMap {
-	//Storing the cities
+	/**
+	 * LinkedList to store the cities using their indicies in the LL
+	 */
 	public LinkedList<String> cities;
-	//Adjacent matrix for placing edges
+	/**
+	 * Adjacent matrix to store the edges
+	 */	
 	public int[][] adj_matrix;
-	//Matrix for cost
+	/**
+	 * Matrix to store the edge costs
+	 */
 	public int[][] cost;
-	//Array used to check if a citiy was visited
-	//when finding the routes
+	/**
+	 * Array used to check if a node is visited during the traversal to find all routes
+	 */
 	public boolean[] visited;
-	
-	
-	String[] routes;
-	int[] costs;
-	
-
+	/**
+	 * The final output which is all the routes reachable
+	 */
+	public String[] routes;
+	/**
+	 * The cost of x index in routes[] is stored here
+	 */
+	public int[] costs;
+	/**
+	 * Temp variable used to store the content
+	 */
 	String temp2 = new String();
 
-	//Constructor
+	/**
+	   * Constructor which intialize the city linked list
+	   */
 	public FlightMap() {
 		cities = new LinkedList<String>();
-
 	}
 	
 	
-	//Function that stores the cities in LinkedList
+	/**
+	   * This method parse line by line of the data
+	   * which is called from the SearchMap.java
+	   * @param content The data of the graph
+	   */
 	public void readCities(String content) {
 		//Get Cities
 		String[] temp = content.split(" ");
@@ -50,7 +67,10 @@ public class FlightMap {
 		}			
 	}
 	
-	//Places the edges 
+	/**
+	   * After storing the destinations this methods places the edges
+	   * on the adj_matrix[][]
+	   */
 	public void placeEdges() {
 		adj_matrix = new int[cities.size()][cities.size()];
 		cost = new int[cities.size()][cities.size()];
@@ -68,21 +88,13 @@ public class FlightMap {
 			adj_matrix[index1][index2] = 1;
 			cost[index1][index2] = Integer.parseInt(c[2]);
 		}
-		/*
-		for(int i = 0; i < cities.size(); i++)
-			System.out.print(cities.get(i) + " ");
-		System.out.println();
-		for(int i = 0; i < cost.length; i++) {
-			for(int j = 0; j < cost.length; j++) {
-				System.out.print(cost[i][j] + " ");
-			}
-			System.out.print("\n");
-		}
-		*/
-		
 	}
 	
-	//Computes the routes
+	/**
+	   * After placing the edges this methods computes the routes reachable.
+	   * It checks on all the nodes to see which are reachable using
+	   * the backtracking method (findPath).
+	   */
 	public void computeRoutes() {
 		//Path
 	    int[] temp;
@@ -95,11 +107,17 @@ public class FlightMap {
 			visited = new boolean[cities.size()];	
 	    	findPath(0, i, temp, 0);
 	    }
-	    computeCosts();	
+	    
 	 }
 	
 	
-	//Backtracking to find a path
+	/**
+	   * Backtracking method to find all reachable destinations
+	   * @param src the source node
+	   * @param target the target node
+	   * @param path[] temp array to store the path found
+	   * @param ctr counter used for the algorithm
+	   */
 	public void findPath(int src, int target, int path[], int ctr) {
 		visited[src] = true;
 		path[ctr] = src;
@@ -127,7 +145,9 @@ public class FlightMap {
 		ctr--;
 		visited[src] = false;
 	}
-	
+	/**
+	   * After the routes are found this methods computers each route cost.
+	   */
 	public void computeCosts() {
 		this.costs = new int[cities.size()];
 		for(int i = 1; i < routes.length; i++) {
@@ -148,17 +168,29 @@ public class FlightMap {
 		}
 	}
 	
+	/**
+	   * Get method which returns the cost of a route index T
+	   * @param index the route which we want to find out the cost of
+	   */
 	public int getRouteCosts(int index) {
 		return this.costs[index];
 	}
-	//Get method to get all the routes computed
+	/**
+	   * Get method which returns all of the routes found
+	   */
 	public String[] getRoutes() {
 		return this.routes;
 	}
-	//Get method to get the city based on the index value in the LL
+	/**
+	   * Get method to get the city string based on the index value in the LL
+	   * @param index the index of the city
+	   */
 	public String getCity(int index) {
 		return this.cities.get(index);
 	}
+	/**
+	   * Get method which returns how many cities the graph has
+	   */
 	public int howManycities() {
 		return this.cities.size();
 	}
