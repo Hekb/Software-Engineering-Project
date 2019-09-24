@@ -1,92 +1,68 @@
 <project name="Project1" default="compile" basedir=".">
 
+<description> Flight Finder Application </description>
 
-
-
-<!-- Init target -->
+<!-- Init Target -->
 <target name="init">
         <mkdir dir="bin"/>
         <mkdir dir="dis"/>
         <mkdir dir="doc"/>
-        <mkdir dir="src"/>
-		
+		<mkdir dir="bin/test"/>
 </target>
 
 
-<!-- compile Main files -->
+<!-- Compile Main Files Target -->
 <target name="compile" depends="init">
         <javac srcdir="src/main" destdir="bin" includeantruntime="false"/>
 </target>
 	
 
-
-	 <path id="classpath.test">
-	 	<pathelement location="lib/junit-4.12.jar"/>
-		<pathelement location="lib/hamcrest-core-1.3.jar"/>
-	 	<pathelement path="bin"/>
-	  </path>
-	
-	<target name="compileTest" description="compile jUnit Test cases ">
-	    <javac srcdir="src" destdir="bin" includeantruntime="true" classpath="lib/junit-4.12.jar"
+<!-- Compile Junit Test Files Target -->
+<target name="compileTest" description="compile test classes for junit">
+	<javac srcdir="src" destdir="bin" includeantruntime="true" classpath="lib/junit-4.12.jar"
  			nowarn="yes" debug="true"/>
-	</target>
+</target>
 	
+<!-- Run Junit Test Classes Target -->
+<target name="test" depends="compileTest">
 
-	<target name="test" depends="compileTest">
+	<junit printsummary="on" fork="yes">
+		<classpath>
+		        <pathelement location="lib/junit-4.12.jar"/>
+		        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+				<pathelement path="bin"/>
+		</classpath>        	
+		<formatter type="brief" usefile="false" />
 
-		    <junit printsummary="on" fork="yes">
-		        	<classpath>
-		        		<pathelement location="lib/junit-4.12.jar"/>
-		        		<pathelement location="lib/hamcrest-core-1.3.jar"/>
-		        		<pathelement path="bin"/>
-			       	</classpath>
-		        	
-			        <formatter type="brief" usefile="false" />
-
-		            <batchtest fork="yes" >
-		            	<fileset dir="src" includes="**/Test*" />
-		            </batchtest>
-		        </junit>
-		    </target>
+		<batchtest fork="yes" >
+		         <fileset dir="src" includes="**/Test*" />
+		</batchtest>
+	</junit>
+</target>
 
 	
-<!-- clean -->
+<!-- Clean Target -->
 <target name="clean" depends="init">
         <delete dir="doc"/>
         <delete dir="bin"/>
         <delete dir="dis"/>
 </target>
 	
-	
-
-	
-
-
-<!-- doc target -->
+<!-- Javadoc Target -->
 <target name="doc" depends="init">
 		<javadoc destdir="doc">
 			<fileset dir="src/main"/>
 		</javadoc>
 </target>
 
-<!-- Jar -->
-<target name="jar" depends="compile">
-        <jar destfile="dis/Project1.jar" basedir="bin/main">
-            <manifest>
-                <attribute name="Main-Class" value="SearchMap"/>
-            </manifest>
-        </jar>
-</target>
-
-	<target name = "dis">
+<!-- Jar Target -->
+<target name = "dis">
 	   <jar destfile = "dis/Project1.jar"
 	      basedir = "bin"
 	      excludes = "**/Test*.class">
-	      
 	      <manifest>
 	         <attribute name = "Main-Class" value = "main.SearchMap"/>
 	      </manifest>
 	   </jar>
 	</target>
-
 </project>
