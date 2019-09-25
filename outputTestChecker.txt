@@ -1,0 +1,5 @@
+Destination          Flight Route from P  Total Cost          
+M                    P,M                  1                   
+N                    P,M,N                5                   
+T                    P,M,N,T              10                  
+Y                    P,Y                  2                   

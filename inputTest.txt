@@ -1,0 +1,6 @@
+P
+P M 1
+M N 4
+N T 5
+P Y 2
+Q Y 2

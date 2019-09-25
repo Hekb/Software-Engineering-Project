@@ -1,4 +1,6 @@
 #Don't track these folders please
-lib/
 .DS_Store
-
+#Eclipse files to ignore
+.classpath
+.project
+.settings/

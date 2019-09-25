@@ -8,7 +8,15 @@ import main.FlightMap;
 
 public class TestFlightMap {
 	
-	//Methods to test readCities
+	//Junit to test the constructor
+	@Test
+	public void constructorTest() {
+	    FlightMap map = new FlightMap();
+	    boolean isIntialized = (map.cities.size() == 0);
+	    assertEquals(true, isIntialized);
+	}
+	
+	//Junit to test readCities
 	@Test
 	public void readCitiesTest1() {
 	    FlightMap map = new FlightMap();
@@ -31,7 +39,7 @@ public class TestFlightMap {
 	}
 	//End of readCities test
 	
-	//Methods to test placeEdges
+	//Junit to test placeEdges
 	@Test
 	public void placeEdgesTest1() {
 	    FlightMap map = new FlightMap();
@@ -42,7 +50,9 @@ public class TestFlightMap {
 	    assertEquals(1,map.adj_matrix[0][1]);
 	    assertEquals(0,map.adj_matrix[0][2]);
 	}
+	//End of PlaceEdge Tests
 	
+	//Junit to test ComputeRoutes 
 	@Test
 	public void computeRoutesTest1() {
 	    FlightMap map = new FlightMap();
@@ -84,7 +94,26 @@ public class TestFlightMap {
 	    map.computeRoutes();
 	    assertEquals("P,Y",map.routes[3]);
 	}
+	//End of computeroutes Tests
 	
+	//Junit for findAllRoutes
+	@Test
+	public void findAllRoutesTest1() {
+	    FlightMap map = new FlightMap();
+	    map.readCities("P");
+	    map.readCities("P M 200");
+	    map.readCities("M N 232");
+	    map.readCities("N Y 232");
+	    map.placeEdges();
+	    int[] temp = new int[3];
+	    map.visited = new boolean[3];
+	    map.routes = new String[3];
+	    map.findAllRoutes(0, 2, temp, 0);
+	    assertEquals("P,M,N",map.routes[2]);
+	}
+	//End of findAllRoutes Tests
+	
+	//Junit for computeCost function
 	@Test
 	public void computeCostTest1() {
 	    FlightMap map = new FlightMap();
@@ -118,9 +147,10 @@ public class TestFlightMap {
 	    map.computeCosts();
 	    assertEquals(12,map.costs[2]);
 	}
+	//End of ComputeCostTest Tests
 	
 	
-	//Test the get methods
+	//Junit the get methods
 	@Test
 	public void getCityTest1() {
 		FlightMap map = new FlightMap();
@@ -136,11 +166,12 @@ public class TestFlightMap {
 	    map.readCities("M N 632");
 	    assertEquals("R", map.getCity(1));
 	}
+	//End of getCity Tests
 	
 
-	//Test the howManycities get methods
+	//Junit the howManycities get methods
 	@Test
-	public void howManycitiesTest1() {
+	public void howManyCitiesTest1() {
 		FlightMap map = new FlightMap();
 	    map.readCities("P");
 	    map.readCities("P M 200");
@@ -153,7 +184,7 @@ public class TestFlightMap {
 	    assertEquals(12, map.howManycities() + 1);
 	}
 	@Test
-	public void howManycitiesTest2() {
+	public void howManyCitiesTest2() {
 		FlightMap map = new FlightMap();
 	    map.readCities("P");
 	    map.readCities("P R 100");
@@ -162,8 +193,9 @@ public class TestFlightMap {
 	    map.readCities("P V 100");
 	    assertEquals(8, map.howManycities() + 1);
 	}
+	//End of howManyCities Tests
 	
-	//Test getRouteCosts get method
+	//Junit getRouteCosts get method
 	@Test
 	public void getRouteCostsTest1() {
 		FlightMap map = new FlightMap();
@@ -189,8 +221,9 @@ public class TestFlightMap {
 	    map.computeCosts();
 	    assertEquals(443, map.getRouteCosts(2));
 	}
+	//End of getRouteCosts Tests
 	
-	//Test getRoutes method
+	//Junit getRoutes method
 	@Test
 	public void getRoutesTest1() {
 		FlightMap map = new FlightMap();
@@ -220,5 +253,6 @@ public class TestFlightMap {
 	    String[] paths = {null, "P,R", "P,X", null, null, null};
 	    assertEquals(paths[1], map.getRoutes()[1]);
 	}
+	//End of getRoutesTest Tests
 	
 }

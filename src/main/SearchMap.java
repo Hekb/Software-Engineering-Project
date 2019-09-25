@@ -11,8 +11,8 @@ public class SearchMap {
 	static FlightMap obj;
 
 	/**
-	 * This is the main method which will will read the data and
-	 * parse to generate the graph and then call the method to output the results
+	 * This is the main method which will will read the data and parse to generate
+	 * the graph and then call the method to output the results
 	 * 
 	 * @param args[] the filename which containts the data and the output file name
 	 */
@@ -20,10 +20,10 @@ public class SearchMap {
 		SearchMap s = new SearchMap();
 		obj = new FlightMap();
 
-		//The input file and output file
-		String fileName = args[0];
-		String outputfile = args[1];
-		
+		// The input file and output file
+		String fileName = "../" + args[0];
+		String outputfile = "../" + args[1];
+
 		// Reads the file and sends the data
 		// line by line to the FlightMap
 		try {
@@ -40,7 +40,16 @@ public class SearchMap {
 		// Computes the routes and the costs
 		obj.computeRoutes();
 		obj.computeCosts();
+		writeToFile(outputfile);
+	}
 
+	/**
+	 * This method writes the final data which is all the routes reachable with the
+	 * cost
+	 * 
+	 * @param outputfile is the file the user wants to output the data to
+	 */
+	public static void writeToFile(String outputfile) {
 		// Write to a file
 		try {
 			String[] routesComputed = obj.getRoutes();
