@@ -106,7 +106,7 @@ public class FlightMap {
 	    	temp = new int[cities.size()];
 	    	//Reset the visited nodes value
 			visited = new boolean[cities.size()];	
-	    	findPath(0, i, temp, 0);
+			findAllRoutes(0, i, temp, 0);
 	    }
 	    
 	 }
@@ -116,34 +116,41 @@ public class FlightMap {
 	   * Backtracking method to find all reachable destinations
 	   * @param src the source node
 	   * @param target the target node
-	   * @param path[] temp array to store the path found
+	   * @param visitedPath[] temp array to store the path found
 	   * @param ctr counter used for the algorithm
 	   */
-	public void findPath(int src, int target, int path[], int ctr) {
+	public void findAllRoutes(int src, int target, int visitedPath[], int ctr) {
+		//Set this current node as visited
 		visited[src] = true;
-		path[ctr] = src;
-		ctr++;
+		//Store that we visited this node
+		visitedPath[ctr] = src;
+		ctr = ctr + 1;
 		//Path found
 		if(src == target) {
+			//Transfer the route to a global variable based on the index of the target
 			routes[target] = new String();
 			for(int i = 0; i < ctr; i++) {
 				if(i == 0) {
-					routes[target] = cities.get(path[i]);
+					routes[target] = cities.get(visitedPath[i]);
 				}else {
-					routes[target] = routes[target] + "," + cities.get(path[i]);
+					routes[target] = routes[target] + "," + cities.get(visitedPath[i]);
 				}
 			}
 			return;
 		}else {
+			//Visit all possible nodes and do recursion
 			for(int i =0; i < cities.size(); i++) {
 				if(adj_matrix[src][i] == 1) {
 					if(!visited[i]) {
-						findPath(i,target,path,ctr);
+						findAllRoutes(i,target,visitedPath,ctr);
 					}
 				}
 			}
 		}
-		ctr--;
+		//Target was not found so we reverse
+		ctr = ctr - 1;
+		//Set this node to not visited because we might visit it again
+		//through a different path
 		visited[src] = false;
 	}
 	/**
