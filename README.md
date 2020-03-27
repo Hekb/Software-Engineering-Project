@@ -1,6 +1,6 @@
 Java project to demonstrate and practice test-driven development software engineering principle. As well as other software engineering tools like Java Ant, Java Junit and Git.
 
-#Useful Commands:
+# Useful Commands:
 'ant clean' deletes bin/dis/doc directories
 'ant init' creates bin/dis/doc directoreis
 'ant compile' compiles .java classes inside src into bin/main
