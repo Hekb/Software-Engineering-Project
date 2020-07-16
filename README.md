@@ -1,14 +1,15 @@
 # Overview:
-Java project to demonstrate and practice test-driven development software engineering principle. As well as other software engineering tools like Java Ant, Java Junit and Git.
+Java project to demonstrate and practice test-driven development (TDD) software engineering principle. As well as other software engineering tools like Java Ant, Java Junit and Git.
 
 # Project Description:
-Java program that implements a Searchable Flight Map. Program determines  the route to each city that can be reached from the origin city with the associated total cost. At the end, the program outputs the flight route from the origin city to each reachable city and the associated total cost.
+Java program that implements a Searchable Flight Map. Program determines the route to each city that can be reached from the origin city with the associated total cost. At the end, the program outputs the flight route from the origin city to each reachable city and the associated total cost.
 
 # Technologies used
 - Java
 - Algorthims (BFS)
 - Junit for testing
 - Java Ant
+- TDD Development
 
 # Useful Commands:
 ```ant clean``` deletes bin/dis/doc directories<br />
